@@ -1,22 +1,33 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.3'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group = 'com.bilgeadam'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-repositories {
-    mavenCentral()
+allprojects {
+    apply plugin : 'eclipse'
+    apply plugin : 'idea'
+    apply from   : "${rootDir}/dependencies.gradle"
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+subprojects {
+    apply plugin: 'java'
+    group = "com.bilgeadam"
+    version = "v.1.0.0"
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
+
+configurations {
+    compileOnly{
+        extendsFrom annotationProcessor
+    }
 }
