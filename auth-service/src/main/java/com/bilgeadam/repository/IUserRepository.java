@@ -23,7 +23,7 @@ public interface IUserRepository extends JpaRepository<User, Long> {
      * 0 -> pasif kullanıcı
      * 1 -> aktif kullanıcı
      * 2 -> engellenmiş kullanıcı, Hesabı askıya alınmış
-     * 3 -> V.S
+     * 3 -> sistemde kayıt var ve giriş yapılıyor
      * @param status
      * @return
      */

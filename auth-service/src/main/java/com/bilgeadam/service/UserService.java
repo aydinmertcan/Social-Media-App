@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class UserService{
+
     final IUserRepository iUserRepository;
     UserMapper userMapper;
 
@@ -19,6 +20,7 @@ public class UserService{
         this.iUserRepository = iUserRepository;
         this.userMapper = userMapper;
     }
+
 
     /**
      * Kullanıcıyı kayıt eder ve kayıtedilen kullanıcının id bilgisi alınarak geri döndürülür.
@@ -54,8 +56,10 @@ public class UserService{
         return new DoLoginResponseDto();
     }
 
-    public boolean isUser(String username,String password){
-        Optional<User> user = iUserRepository.findByUsernameAndPassword(username, password);
+    public boolean isUser(DoLoginRequestDto dto){
+        Optional<User> user = iUserRepository.findByUsernameAndPassword(
+                dto.getUsername(), dto.getPassword()
+        );
         if (user.isPresent())
             return true;
         return false;

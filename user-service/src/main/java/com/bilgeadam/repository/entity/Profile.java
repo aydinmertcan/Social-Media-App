@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,7 +15,8 @@ import java.util.List;
 @Data
 @Builder
 @Document
-public class Profile {
+public class Profile implements Serializable{
+    private static final long serialVersionUID = -2715394097317982575L;
     @Id
     String id;
     long authid;
@@ -27,15 +29,23 @@ public class Profile {
     String gender;
     String about;
     List<Interest> interest;
+    Education education;
+    Work work;
 
-    class Education {
+    @Document
+    @Data
+    public static class Education implements Serializable {
+        private static final long serialVersionUID = 7762343345810487479L;
         String name;
         int from;
         int to;
         String about;
     }
 
-    class Work {
+    @Document
+    @Data
+    public static class Work implements Serializable{
+        private static final long serialVersionUID = -6393032873812031159L;
         String company;
         String designation;
         int from;
