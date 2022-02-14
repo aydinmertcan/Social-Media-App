@@ -163,14 +163,23 @@
                     <!--Registration Form Contents-->
                     <div class="tab-content">
                         <div class="tab-pane active" id="register">
-                            <h3><label th:text="${model.title}"/></h3>
-                            <p th:each="ls : ${model.urunler}"><label th:style="${lsStat.index==0 ? 'color:red' : ''}"
-                                                                      th:text="${ls.urunAdi}"/>
+                            <h3>Üye Ol</h3>
+                            <!--
+                            <p th:each="ls : ${model.urunler}">
+                                <label th:text="${ls.urunAdi}" th:style="${lsStat.index==0 ? 'color:red' : ''}"/>
                             </p>
-                            <p class="text-muted">Be cool and join today. Meet millions</p>
+                            -->
 
                             <!--Register Form-->
                             <form class="form-inline" id='registration_form' name="registration_form">
+                                <div class="row" style="text-align: center">
+                                    <div class="form-group">
+                                        <img height="150px"
+                                             id="profile_image_id"
+                                             src="https://bilge-web-statics.s3.us-east-2.amazonaws.com/bilgesocialmedia/images/users/user-5.jpg"
+                                             width="150px"/>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="form-group col-xs-6">
                                         <label class="sr-only" for="firstname">First Name</label>
