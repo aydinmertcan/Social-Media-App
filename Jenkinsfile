@@ -9,7 +9,7 @@ pipeline {
                     gradle {
                     tasks 'build'
                     options '--stacktrace'
-                    gradleOptions '-Pproject.version=${env.BUILD_NUMBER}'
+                    gradleOptions '-Project.version=${env.BUILD_NUMBER}'
                 }
                 echo "Java VERSION"
                 sh 'java -version'
