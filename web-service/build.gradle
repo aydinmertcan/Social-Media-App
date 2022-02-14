@@ -5,5 +5,5 @@ buildscript {
 }
 
 dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.6.3'
+    implementation libs.thymeleaf
 }
