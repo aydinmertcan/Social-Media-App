@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      team: frontenddeveloper
+  template:
+    metadata:
+      labels:
+        team: frontenddeveloper
+      annotations:
+        grup: javaboost
+        email: java@java.com
+        telefon: 0 555 555 6655
+    spec:
+      containers:
+      - name: pod-bilgeweb
+        image: muhammedali55/bilgeweb:v003
+        livenessProbe:
+          httpGet:
+            path: "/actuator/health"  #Liveness Prob un dinleyeceği endpoint i yazıyoruz.
+            port: 80 #LibvenessProbe un oluşacağı port. ???
+          initialDelaySeconds: 5  #Uygulamamız belli ayarları yaparak, dosyalar indirerek ayağa kalkabilir böyle durumlarda
+                                  # sistemin kendine gelmesi zaman alabilir. burada sistemin ayağakalkması için geçen süreyi 
+                                  # yazıyoruz.
+          periodSeconds: 3
+         #  tcpSocket: -> Eğer bir DB için bu işlemi yapıyorsanız bunu kullanmalısınız.            
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 80
