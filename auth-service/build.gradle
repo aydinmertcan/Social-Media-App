@@ -7,6 +7,6 @@ dependencies {
     implementation  libs.springDataJpa
     implementation libs.postgresql
     implementation libs.springCloudClientConfig
-    implementation   libs.springSecurity
+//    implementation   libs.springSecurity
 
 }

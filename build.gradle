@@ -45,6 +45,8 @@ allprojects {
         annotationProcessor  libs.mapstructProcessor
         implementation  libs.springCloudZipkin
         implementation  libs.springCloudSleuth
+        implementation  libs.springCloudCircuitbreaker
+        implementation  libs.springCloudCircuitbreakerReactor
     }
 }
 configurations {
