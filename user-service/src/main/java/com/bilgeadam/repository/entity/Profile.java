@@ -15,8 +15,7 @@ import java.util.List;
 @Data
 @Builder
 @Document
-public class Profile implements Serializable{
-    private static final long serialVersionUID = -2715394097317982575L;
+public class Profile implements Serializable {
     @Id
     String id;
     long authid;
@@ -34,18 +33,17 @@ public class Profile implements Serializable{
 
     @Document
     @Data
-    public static class Education implements Serializable {
-        private static final long serialVersionUID = 7762343345810487479L;
+    public static class Education implements Serializable{
         String name;
         int from;
         int to;
         String about;
+
     }
 
     @Document
     @Data
     public static class Work implements Serializable{
-        private static final long serialVersionUID = -6393032873812031159L;
         String company;
         String designation;
         int from;
@@ -53,4 +51,6 @@ public class Profile implements Serializable{
         String town;
         String description;
     }
+
+
 }

@@ -1,30 +1,33 @@
 package com.bilgeadam.service;
-
 import com.bilgeadam.dto.request.DoLoginRequestDto;
+import com.bilgeadam.dto.request.FindByAutIdDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
 import com.bilgeadam.dto.response.DoLoginResponseDto;
+import com.bilgeadam.manager.ProfileManager;
 import com.bilgeadam.mapper.UserMapper;
 import com.bilgeadam.repository.IUserRepository;
 import com.bilgeadam.repository.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
-public class UserService{
+public class UserService {
 
-    final IUserRepository iUserRepository;
-    UserMapper userMapper;
+    @Autowired
+    IUserRepository iUserRepository;
 
-    public UserService(IUserRepository iUserRepository, UserMapper userMapper) {
-        this.iUserRepository = iUserRepository;
-        this.userMapper = userMapper;
-    }
+    @Autowired
+    UserMapper  userMapper;
 
+    @Autowired
+    ProfileManager profileManager;
 
     /**
      * Kullanıcıyı kayıt eder ve kayıtedilen kullanıcının id bilgisi alınarak geri döndürülür.
-     * @param
+     * @param dto
      * @return
      */
     public User saveReturnUser(RegisterRequestDto dto){
@@ -49,21 +52,39 @@ public class UserService{
         return iUserRepository.findAll();
     }
 
-    public DoLoginResponseDto findByUsernameAndPassword(DoLoginRequestDto dto){
-        Optional<User> user =  iUserRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
-        if(user.isPresent())
-            return userMapper.doLoginResponseDto(user.get());
-        return new DoLoginResponseDto();
-    }
 
-    public boolean isUser(DoLoginRequestDto dto){
-        Optional<User> user = iUserRepository.findByUsernameAndPassword(
-                dto.getUsername(), dto.getPassword()
-        );
-        if (user.isPresent())
-            return true;
+    public boolean isUser(String username,String password){
+       Optional<User> user = iUserRepository.findByUsernameAndPassword(username, password);
+       if (user.isPresent())
+           return true;
         return false;
     }
-
+    /*
+        public  Optional<User> getUser(DoLoginRequestDto dto){
+            return iUserRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+        }
+    */
+    public DoLoginResponseDto getProfile(DoLoginRequestDto dto){
+        /**
+         * Kullancı adı ve şifre den auth Db de ki kullanıcıyı arar.
+         */
+        Optional<User> user =iUserRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+        if (user.isPresent()){
+            /**
+             * Eğer kullanıvı var ise, ProfileController a giderek kişiye ait profil id sini getirecek.             *
+             */
+            long authid = user.get().getId();
+            String profileid =   profileManager.findByAuthId(FindByAutIdDto.builder().authid(authid).build()).getBody();
+            /**
+             * Eğer dönen değer, "" ise farklı dolu ise farklı işlem yapılacak.
+             */
+            if (profileid.equals("")){
+                return DoLoginResponseDto.builder().error(500).build();
+            }else{
+                return DoLoginResponseDto.builder().profileid(profileid).error(200).build();
+            }
+        }
+        return DoLoginResponseDto.builder().error(410).build();
+    }
 
 }

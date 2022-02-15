@@ -1,7 +1,8 @@
 package com.bilgeadam.controller;
+
 import static com.bilgeadam.constant.RestApiUrls.*;
 
-import com.bilgeadam.constant.RestApiUrls;
+import com.bilgeadam.dto.request.FindByAutIdDto;
 import com.bilgeadam.dto.request.ProfileRequestDto;
 import com.bilgeadam.repository.entity.Profile;
 import com.bilgeadam.service.ProfileService;
@@ -11,24 +12,37 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(VERSION+PROFILE)
+// @RequestMapping("/profile")
 @RequiredArgsConstructor
 public class ProfileController {
-    private final ProfileService service;
+
+    private final ProfileService profileService;
 
     @PostMapping(SAVE)
-    public ResponseEntity<String> save(@RequestBody @Valid ProfileRequestDto dto) {
-        service.save(dto);
-        return ResponseEntity.ok("Ok.");
+    // @PostMapping("/save")
+    public ResponseEntity<String> save(@RequestBody @Valid ProfileRequestDto dto){
+        String id = profileService.save(dto);
+        return ResponseEntity.ok(id);
     }
 
-    @GetMapping(FINDALL)
-    public ResponseEntity<List<Profile>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    @PostMapping(FINDBYAUTHID)
+    public ResponseEntity<String> findByAuthId(@RequestBody @Valid FindByAutIdDto dto){
+        Optional<Profile> profile = profileService.findByAuthId(dto.getAuthid());
+        if(profile.isPresent()){
+            return ResponseEntity.ok(profile.get().getId());
+        }else{
+            return ResponseEntity.ok("");
+        }
     }
 
+    @GetMapping(GETALL)
+    public ResponseEntity<List<Profile>> findAll(){
+        return ResponseEntity.ok(profileService.findAll());
+    }
 
 
 }

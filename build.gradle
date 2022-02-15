@@ -35,13 +35,16 @@ allprojects {
     }
     dependencies {
         implementation  libs.springBootWeb
+        implementation  libs.springBootTest
         implementation  libs.lombok
+        implementation  libs.springOpenFeign
         annotationProcessor libs.lombok
         implementation  libs.springValidation
         implementation  libs.openapi
         implementation  libs.mapstruct
         annotationProcessor  libs.mapstructProcessor
-        implementation  libs.springOpenFeign
+        implementation  libs.springCloudZipkin
+        implementation  libs.springCloudSleuth
     }
 }
 configurations {
@@ -49,5 +52,6 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
+
 
 

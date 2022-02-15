@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface IProfileRepository extends MongoRepository<Profile, String> {
+public interface IProfileRepository extends MongoRepository<Profile,String> {
 
     Optional<Profile> findByAuthid(long id);
+
 }

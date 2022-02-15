@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,18 +16,18 @@ import java.util.List;
 @Data
 @Builder
 public class ProfileRequestDto implements Serializable {
-        long authid;
-        String firstname;
-        String lastname;
-        String email;
-        String birthdate;
-        String country;
-        String city;
-        String gender;
-        String about;
-        List<Interest> interest;
-        Profile.Education education;
-        Profile.Work work;
+    long authid;
+    String firstname;
+    String lastname;
+    String email;
+    String birthdate;
+    String country;
+    String city;
+    String gender;
+    String about;
+    List<Interest> interest;
+    Profile.Education education;
+    Profile.Work work;
+
+
 }
-
-

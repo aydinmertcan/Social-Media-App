@@ -19,7 +19,7 @@ public class LoginPageModel {
     @NoArgsConstructor
     @Data
     @Builder
-    public static class urun {
+    public static class urun{
         String urunAdi;
         String urunFiyati;
     }

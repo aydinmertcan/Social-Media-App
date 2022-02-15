@@ -1,6 +1,6 @@
-rootProject.name = 'BilgeAdam_SocialMedia'
+rootProject.name = 'SocialMedia'
 include 'user-service'
 include 'auth-service'
 include 'web-service'
-include 'web-service'
+include 'config-server'
 
