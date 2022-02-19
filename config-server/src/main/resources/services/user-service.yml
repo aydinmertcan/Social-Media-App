@@ -1,11 +1,28 @@
 server:
-  port: 8090
+  port: ${USER_SERVICE_PORT}
 
 spring:
+  rabbitmq:
+    host: ${HOST}
+    port: ${RABBIT_PORT}
+    username: ${USER_SERVICE_SPRING_RABBIT_USERNAME}
+    password: ${USER_SERVICE_SPRING_RABBIT_PASSWORD}
   data:
     mongodb:
-      database: socialmedia
-      username: bilgeadamuser
-      password: '!b1lgeadam**'
-      host: 34.118.33.50
-      port: 27017
+      database: ${USER_SERVICE_DATA_MONGODB_DATABASE}
+      username: ${USER_SERVICE_DATA_MONGODB_USERNAME}
+      password: ${USER_SERVICE_DATA_MONGODB_PASSWORD}
+      host: ${HOST}
+      port: ${USER_SERVICE_DATA_MONGODB_PORT}
+  zipkin:
+    enabled: true
+    base-url: ${ZIPKIN_BASEURL}
+    service-name: user-service
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot: info
+    com.bilgeadam: debug
+  file:
+    name: userservice.log

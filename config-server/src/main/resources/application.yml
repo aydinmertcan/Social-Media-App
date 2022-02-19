@@ -1,11 +1,11 @@
 server:
-  port: 8888
+  port: ${CONFIG_PORT}
 
 spring:
   security:
     user:
-      name: administrator
-      password: Bilge123!!
+      name: ${CONFIG_SECURITY_USERNAME}
+      password: ${CONFIG_SECURITY_PASSWORD}
   application:
     name: config-server
   profiles:
@@ -16,7 +16,16 @@ spring:
         native:
           search-locations: classpath:/services
   zipkin:
-    enable: true
-    base-url: http://34.116.235.46:9411/
-    service:
-      name: config-server
+    enabled: true
+    base-url: ${ZIPKIN_BASEURL}
+    service-name: config-server
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot: info
+    com.bilgeadam: debug
+  ##  com.bilgeadam.controller: debug
+  file:
+    name: configserver.log
+    ## path: \\server\\logs\\configserver\\

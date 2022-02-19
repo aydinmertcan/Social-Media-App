@@ -1,9 +1,9 @@
 spring:
   cloud:
     config:
-      username: "administrator"
-      password: "Bilge123!!"
-      uri: "http://192.168.1.201:8888"
+      username: ${CONFIG_SECURITY_USERNAME}
+      password: ${CONFIG_SECURITY_PASSWORD}
+      uri: ${CONFIG_URI}
   config:
     import: "configserver:"
   application:

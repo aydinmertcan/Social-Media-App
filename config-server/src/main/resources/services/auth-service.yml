@@ -1,18 +1,35 @@
 server:
-  port: 8890
+  port: ${AUTH_SERVICE_PORT}
 
 spring:
+  rabbitmq:
+    host: ${HOST}
+    port: ${RABBIT_PORT}
+    username: ${AUTH_SERVICE_DATASOURCE_USERNAME}
+    password: ${AUTH_SERVICE_DATASOURCE_PASSWORD}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://34.116.142.235:5432/AuthDb
-    username: postgres
-    password: BilgeAdam!**
+    url: ${AUTH_SERVICE_DATASOURCE_URL}
+    username: ${AUTH_SERVICE_DATASOURCE_USERNAME}
+    password: ${AUTH_SERVICE_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       format-sql: true
+  zipkin:
+    enabled: true
+    base-url: ${ZIPKIN_BASEURL}
+    service-name: auth-service
 
 myapplication:
-  userservice: 192.168.1.201:8090
+  userservice: ${AUTH_SERVICE_MYAPPLICATION_USERSERVICE}
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot: info
+    com.bilgeadam: debug
+  file:
+    name: authservice.log
