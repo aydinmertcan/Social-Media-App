@@ -36,6 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
+# Secret file
+.env
+
 ### Folders ###
 BilgeAdamSocialMediaHtml/
 Kubernete/PROJECT/*
