@@ -51,10 +51,9 @@ public class LoginController {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("login");
             if(response.getError() == 410)
-                modelAndView.addObject("loginerror", "Kullanıcıadı ya da şifre hatalı");
+                modelAndView.addObject("loginerror", "Kullanıcı adı ya da şifre hatalı");
             else if(response.getError() == 500)
                 modelAndView.addObject("loginerror", "Beklenmeyen Hata Lütfen Tekrar Deneyiniz.");
-            //modelAndView.addObject("hata",true);
             return modelAndView;
         }
     }
