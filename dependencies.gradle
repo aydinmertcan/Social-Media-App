@@ -7,7 +7,9 @@ ext{
             lombok              : "1.18.22",
             openapi             : "1.6.5",
             mapstruct           : "1.4.2.Final",
-            aws                 : "1.12.156"
+            aws                 : "1.12.156",
+            springGraphql       : "12.0.0",
+            springGraphiql      : "11.1.0"
     ]
 
     libs = [
@@ -36,7 +38,8 @@ ext{
           mapstructProcessor    : "org.mapstruct:mapstruct-processor:$versions.mapstruct",
           awsS3                 : "com.amazonaws:aws-java-sdk-s3:$versions.aws",
           awsCloudFront         : "com.amazonaws:aws-java-sdk-cloudfront:$versions.aws",
-
-
+          springGraphql         : "com.graphql-java-kickstart:graphql-spring-boot-starter:$versions.springGraphql",
+          springGraphiql        : "com.graphql-java-kickstart:graphiql-spring-boot-starter:$versions.springGraphiql",
+          javaToolGraphql       : "com.graphql-java-kickstart:graphql-java-tools:$versions.springGraphql"
     ]
 }

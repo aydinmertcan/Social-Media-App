@@ -7,6 +7,9 @@ dependencies {
     implementation  libs.springCloudClientConfig
     implementation  libs.springAmqp
     implementation  libs.springElasticSearch
+    implementation  libs.springGraphql
+    implementation  libs.springGraphiql
+    implementation  libs.javaToolGraphql
 //    implementation   libs.springSecurity
 
 }

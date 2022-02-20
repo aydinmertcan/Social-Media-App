@@ -5,7 +5,6 @@ import com.bilgeadam.rabbitmq.model.ProfileNotification;
 import com.bilgeadam.repository.IProfileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
