@@ -1,0 +1,16 @@
+server:
+  port: ${ELASTIC_SERVICE_SERVER_PORT}
+spring:
+  elasticsearch:
+    uris:
+      - ${ELASTIC_SERVICE_SPRING_ELASTIC_URI}
+  rabbitmq:
+    host: ${HOST}
+    port: ${RABBIT_PORT}
+    username: ${ELASTIC_SERVICE_SPRING_RABBIT_USERNAME}
+    password: ${ELASTIC_SERVICE_SPRING_RABBIT_PASSWORD}
+  zipkin:
+    enabled: true
+    base-url: ${ZIPKIN_BASEURL}
+    service:
+      name: auth-service

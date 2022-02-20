@@ -22,7 +22,7 @@ spring:
                 enabled: true
                 fallbackUri: forward:/fallback
         - id: user-service-follow
-          uri: ${LOCAL_IP}:${USER_PORT}
+          uri: ${LOCAL_IP}:${USER_SERVICE_PORT}
           predicates:
             - Path=/v1/follow/**
           filters:
@@ -31,7 +31,7 @@ spring:
                 enabled: true
                 fallbackUri: forward:/fallback
         - id: user-service-post
-          uri: ${LOCAL_IP}:${USER_PORT}
+          uri: ${LOCAL_IP}:${USER_SERVICE_PORT}
           predicates:
             - Path=/v1/post/**
           filters:
@@ -40,7 +40,7 @@ spring:
                 enabled: true
                 fallbackUri: forward:/fallback
         - id: user-service-user
-          uri: ${LOCAL_IP}:${USER_PORT}
+          uri: ${LOCAL_IP}:${USER_SERVICE_PORT}
           predicates:
             - Path=/v1/user/**
           filters:
@@ -49,7 +49,7 @@ spring:
                 enabled: true
                 fallbackUri: forward:/fallback
         - id: user-service-profile
-          uri: ${LOCAL_IP}:${USER_PORT}
+          uri: ${LOCAL_IP}:${USER_SERVICE_PORT}
           predicates:
             - Path=/v1/profile/**
           filters:
@@ -58,7 +58,7 @@ spring:
                 enabled: true
                 fallbackUri: forward:/fallback
         - id: web-service
-          uri: ${LOCAL_IP}:${WEB_PORT}
+          uri: ${LOCAL_IP}:${WEB_SERVICE_SERVER_PORT}
           predicates:
             - Path=/web/**
           filters:

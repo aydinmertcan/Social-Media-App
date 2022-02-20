@@ -13,7 +13,7 @@ build/
 .settings
 .springBeans
 .sts4-cache
-.log
+
 
 bin/
 !**/src/main/**/bin/
@@ -43,3 +43,7 @@ BilgeAdamSocialMediaHtml/
 Kubernete/PROJECT/*
 
 .env
+
+### Log Files ###
+*.log
+!spec/*.log

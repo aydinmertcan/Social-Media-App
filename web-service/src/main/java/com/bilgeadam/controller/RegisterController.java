@@ -50,14 +50,13 @@ public class RegisterController {
                         .ad(ad)
                         .ulke(ulke)
                         .build()).getBody();
-//        try{
-//
-//            s3ManagerService.putObject(profileId+".png",resim);
-//            model.setViewName("login");
-//        }catch (Exception e){
-//            log.error("resim yüklenemedi...: "+e.getMessage());
-//            model.setViewName("register");
-//        }
+        try{
+            s3ManagerService.putObject(profileId+".png",resim);
+            model.setViewName("login");
+        }catch (Exception e){
+            log.error("resim yüklenemedi...: "+e.getMessage());
+            model.setViewName("register");
+        }
         return model;
     }
 
