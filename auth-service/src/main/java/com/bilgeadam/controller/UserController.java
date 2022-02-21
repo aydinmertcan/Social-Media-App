@@ -12,8 +12,10 @@ import com.bilgeadam.rabbitmq.producer.UserServiceProducer;
 import com.bilgeadam.repository.entity.User;
 import com.bilgeadam.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(VERSION+AUTH)
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -37,24 +40,47 @@ public class UserController {
     // -> returnCode-> error->9XXX -> 9001-> username and password error
     // -> success-> 1XXX -> 1000, 1100
     // Burada validasyon yapılmalı.
+    // localhost:9098/v1/auth/dologin
     @PostMapping(DOLOGIN)
     @Operation(summary = "Kullanıcı girişi için kullanılacak metod")
     public ResponseEntity<DoLoginResponseDto> doLogin(@RequestBody @Valid DoLoginRequestDto dto){
         return ResponseEntity.ok(userService.getProfile(dto));
     }
 
-    @GetMapping("/sendmessage")
-    public ResponseEntity<Void> sendMessage(String message) {
+
+    @GetMapping("/message")
+    public ResponseEntity<String> message(String mymessage){
+        return ResponseEntity.ok(userService.merhaba(mymessage));
+    }
+
+    @PostMapping("/sendmessage")
+    public ResponseEntity<Void> sendMessage(String message){
         userServiceProducer.sendMessage(Notification.builder()
-                        .message(message)
+                .message(message)
                 .build());
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout(){
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        return ResponseEntity.ok().build();
+    }
 
+    @PostMapping("/deleteuser")
+    public ResponseEntity<Void> deleteUser(String message){
+        userServiceProducer.deleteUser(Notification.builder()
+                .message(message)
+                .build());
+        return ResponseEntity.ok().build();
+    }
+
+    // http://localhost:8091/v1/auth/hello
     @GetMapping("/hello")
     public String Hello(){
-            return "Hello";
+        log.info("Hello sayfasına geldiniz.");
+        log.error("Bir hata oluştu nedensiz ???");
+        return "Hello";
     }
 
     @PostMapping(REGISTER)
@@ -64,14 +90,14 @@ public class UserController {
         // 2. Etapta-> User-Service e kayıt için istek atmalı, dönen cevaba göre işle devam etmeli.
         // authid
         // Uer-Service -> Profile -> oluşturuyorum.
-      String id =  profileManager.save(ProfileRequestDto.builder()
-                        .authid(user.getId())
-                        .email(dto.getEmail())
-                        .firstname(dto.getAd())
-                        .lastname(dto.getSoyad())
-                        .country(dto.getUlke())
-                        .city(dto.getSehir())
-                        .gender(dto.getCinsiyet())
+        String id =  profileManager.save(ProfileRequestDto.builder()
+                .authid(user.getId())
+                .email(dto.getEmail())
+                .firstname(dto.getAd())
+                .lastname(dto.getSoyad())
+                .country(dto.getUlke())
+                .city(dto.getSehir())
+                .gender(dto.getCinsiyet())
                 .build()).getBody();
         return ResponseEntity.ok(id);
     }
@@ -80,6 +106,5 @@ public class UserController {
     public ResponseEntity<List<User>> findAll(){
         return ResponseEntity.ok(userService.findAll());
     }
-
 
 }

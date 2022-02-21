@@ -12,5 +12,4 @@ spring:
   zipkin:
     enabled: true
     base-url: ${ZIPKIN_BASEURL}
-    service:
-      name: auth-service
+    service-name: auth-service

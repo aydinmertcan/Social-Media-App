@@ -10,5 +10,6 @@ dependencies {
     implementation  libs.springAmqp
     implementation  libs.auth0Jwt
     implementation  libs.springSecurity
-
+    implementation  libs.springRedis
+    testImplementation 'org.springframwork.boot:spring-boot-starter-test'
 }

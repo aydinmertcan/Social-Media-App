@@ -4,6 +4,8 @@ import com.bilgeadam.dto.request.DoLoginRequestDto;
 import com.bilgeadam.dto.request.FindByAutIdDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
 import com.bilgeadam.dto.response.DoLoginResponseDto;
+import com.bilgeadam.exception.AuthServiceException;
+import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.manager.ProfileManager;
 import com.bilgeadam.mapper.UserMapper;
 import com.bilgeadam.repository.IUserRepository;
@@ -23,7 +25,7 @@ public class UserService {
     IUserRepository iUserRepository;
 
     @Autowired
-    UserMapper  userMapper;
+    UserMapper userMapper;
 
     @Autowired
     ProfileManager profileManager;
@@ -62,17 +64,18 @@ public class UserService {
     }
 
     @Cacheable(value = "merhaba_cache")
-    public String merhaba(String mesaj) {
+    public String merhaba(String mesaj){
         try {
-
+            Thread.sleep(3500);
+        }catch (Exception e){
         }
+        return mesaj;
     }
 
-
     public boolean isUser(String username,String password){
-       Optional<User> user = iUserRepository.findByUsernameAndPassword(username, password);
-       if (user.isPresent())
-           return true;
+        Optional<User> user = iUserRepository.findByUsernameAndPassword(username, password);
+        if (user.isPresent())
+            return true;
         return false;
     }
     /*
@@ -80,27 +83,29 @@ public class UserService {
             return iUserRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
         }
     */
-    public DoLoginResponseDto getProfile(DoLoginRequestDto dto){
+    public DoLoginResponseDto getProfile(DoLoginRequestDto dto) {
         /**
          * Kullancı adı ve şifre den auth Db de ki kullanıcıyı arar.
          */
-        Optional<User> user =iUserRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
-        if (user.isPresent()){
+        Optional<User> user = iUserRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+        if (user.isPresent()) {
             /**
              * Eğer kullanıvı var ise, ProfileController a giderek kişiye ait profil id sini getirecek.             *
              */
             long authid = user.get().getId();
-            String profileid =   profileManager.findByAuthId(FindByAutIdDto.builder().authid(authid).build()).getBody();
+            String profileid = profileManager.findByAuthId(FindByAutIdDto.builder().authid(authid).build()).getBody();
+
             /**
              * Eğer dönen değer, "" ise farklı dolu ise farklı işlem yapılacak.
              */
-            if (profileid.equals("")){
-                return DoLoginResponseDto.builder().error(500).build();
-            }else{
+            if (profileid.equals("")) {
+                throw new AuthServiceException("Profil Id bilgisi alınamadı", ErrorType.AUTH_KULLANICI_SIFRE_HATASI);
+            } else {
                 return DoLoginResponseDto.builder().profileid(profileid).error(200).build();
             }
         }
-        return DoLoginResponseDto.builder().error(410).build();
+        throw new AuthServiceException("Oturum Bilgileri alanamadı", ErrorType.AUTH_KULLANICI_SIFRE_HATASI);
     }
+
 
 }

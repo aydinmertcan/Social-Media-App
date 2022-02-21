@@ -31,10 +31,11 @@ public class LoginController {
          * public altında ki html file ları KULLANILAMAZ
          */
         modelAndView.setViewName("login");
+
         return modelAndView;
     }
 
-    @PostMapping("/login")
+    //@PostMapping("/login")
     public Object login(@Valid LoginDto loginDto) {
         DoLoginResponseDto  response = loginService.Login(loginDto);
         /**

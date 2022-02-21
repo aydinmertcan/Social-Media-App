@@ -47,3 +47,4 @@ Kubernete/PROJECT/*
 ### Log Files ###
 *.log
 !spec/*.log
+*.gz
