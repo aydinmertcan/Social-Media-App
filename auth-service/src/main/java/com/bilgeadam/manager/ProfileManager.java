@@ -4,8 +4,10 @@ import static com.bilgeadam.constant.RestApiUrls.*;
 import static com.bilgeadam.constant.RestApiUrls.FINDBYAUTHID;
 
 import com.bilgeadam.dto.request.FindByAutIdDto;
+import com.bilgeadam.dto.request.IsProfileExistsDto;
 import com.bilgeadam.dto.request.ProfileRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,4 +29,7 @@ public interface ProfileManager {
 
     @PostMapping(FINDBYAUTHID)
     public ResponseEntity<String> findByAuthId(@RequestBody @Valid FindByAutIdDto dto);
+
+    @PostMapping("/isprofileexistbyid")
+    public ResponseEntity<Boolean> isProfileExistById(@RequestBody IsProfileExistsDto dto);
 }

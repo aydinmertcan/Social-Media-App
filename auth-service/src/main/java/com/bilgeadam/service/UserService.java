@@ -1,4 +1,5 @@
 package com.bilgeadam.service;
+import com.bilgeadam.config.security.JwtTokenManager;
 import com.bilgeadam.dto.request.DoLoginRequestDto;
 import com.bilgeadam.dto.request.FindByAutIdDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
@@ -7,7 +8,9 @@ import com.bilgeadam.manager.ProfileManager;
 import com.bilgeadam.mapper.UserMapper;
 import com.bilgeadam.repository.IUserRepository;
 import com.bilgeadam.repository.entity.User;
+import com.bilgeadam.utility.JwtEncodeDecode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,12 @@ public class UserService {
 
     @Autowired
     ProfileManager profileManager;
+
+    @Autowired
+    JwtTokenManager jwtTokenManager;
+
+    @Autowired
+    JwtEncodeDecode jwtEncodeDecode;
 
     /**
      * Kullanıcıyı kayıt eder ve kayıtedilen kullanıcının id bilgisi alınarak geri döndürülür.
@@ -50,6 +59,13 @@ public class UserService {
 
     public List<User> findAll(){
         return iUserRepository.findAll();
+    }
+
+    @Cacheable(value = "merhaba_cache")
+    public String merhaba(String mesaj) {
+        try {
+
+        }
     }
 
 
